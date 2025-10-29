@@ -1,62 +1,284 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mr Budi Hariyanto Big Data Vault</title>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 0; }
-    h1 { text-align: center; margin-top: 30px; color: #38bdf8; }
-    .section { margin: 40px auto; width: 80%; max-width: 900px; background-color: #1e293b; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4);}
-    .section h2 { border-bottom: 1px solid #38bdf8; padding-bottom: 10px; color: #facc15; }
-    ul { list-style: none; padding-left: 0; }
-    li { margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-    a { color: #38bdf8; text-decoration: none; }
-    a:hover { text-decoration: underline; color: #7dd3fc; }
-    footer { text-align: center; color: #94a3b8; margin: 40px 0; font-size: 0.9em; }
-    .credit { color: #22c55e; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>📊 GOTO Data Vault — Mr Budi Hariyanto</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<style>
+  :root{
+    --bg:#0b1220; --card:#0f1724; --accent:#38bdf8; --muted:#94a3b8; --ok:#22c55e;
+  }
+  body{margin:0;font-family:Inter,Segoe UI,system-ui,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#e6eef8}
+  header{padding:20px 28px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:16px}
+  h1{margin:0;font-size:20px;color:var(--accent)}
+  .topdesc{color:var(--muted);font-size:13px}
+  .container{max-width:1150px;margin:22px auto;padding:0 18px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+  .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.5);min-height:80px}
+  .card h3{margin:0;font-size:14px;color:#f1f5f9}
+  .card p{margin:6px 0 0;font-size:12px;color:var(--muted)}
+  .files{display:grid;grid-template-columns:1fr 420px;gap:18px}
+  .list{background:var(--card);padding:12px;border-radius:10px;min-height:300px;overflow:auto}
+  .preview{background:var(--card);padding:12px;border-radius:10px;min-height:300px}
+  .folder{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .folder .name{font-weight:600}
+  .file{display:flex;justify-content:space-between;gap:8px;padding:8px;border-radius:8px;margin:6px 0;align-items:center;background:rgba(255,255,255,0.01)}
+  .file .meta{font-size:12px;color:var(--muted)}
+  button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cfefff;padding:6px 10px;border-radius:8px;cursor:pointer}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  .tag{font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,0.02);color:var(--muted)}
+  .small{font-size:12px;color:var(--muted)}
+  .loader{height:6px;background:linear-gradient(90deg,#0ea5e9,#60a5fa);border-radius:6px;overflow:hidden}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:6px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
+  a.link{color:var(--accent);text-decoration:none}
+  footer{color:var(--muted);text-align:center;padding:18px;margin-top:18px}
+  @media(max-width:980px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .files{grid-template-columns:1fr}
+    .preview{order:2}
+  }
+</style>
 </head>
 <body>
-  <h1>📊 Mr Budi Hariyanto Big Data Vault</h1>
+<header>
+  <div>
+    <h1>📊 GOTO Data Vault — Mr Budi Hariyanto</h1>
+    <div class="topdesc">Auto-listing repository public — klik file untuk preview. (repo: <code>mrbudih/mrbudihbigdata</code>)</div>
+  </div>
+</header>
 
-  <div class="section">
-    <h2>🧾 Laporan Keuangan</h2>
-    <ul>
-      <li><a href="laporan/GOTO_Q1_2025.pdf" target="_blank">GOTO Q1 2025</a></li>
-      <li><a href="laporan/GOTO_Q2_2025.pdf" target="_blank">GOTO Q2 2025</a></li>
-      <li><a href="laporan/GOTO_Q3_2025.pdf" target="_blank">GOTO Q3 2025</a></li>
-    </ul>
+<div class="container">
+  <div class="grid">
+    <div class="card"><h3>Folder</h3><p class="small">laporan / berita / chart / broker</p></div>
+    <div class="card"><h3>Files</h3><p class="small">Preview PDF / PNG / TXT / CSV</p></div>
+    <div class="card"><h3>Access</h3><p class="small">Public GitHub Pages & Raw URLs</p></div>
+    <div class="card"><h3>Notes</h3><p class="small">Rate-limit GitHub API: ~60 req/jam (belum auth)</p></div>
   </div>
 
-  <div class="section">
-    <h2>📰 Berita & Katalis</h2>
-    <ul>
-      <li><a href="berita/TikTok_Tokopedia.html" target="_blank">TikTok - Tokopedia Deal</a></li>
-      <li><a href="berita/Tencent_Efisiensi.txt" target="_blank">Efisiensi Server ke Tencent</a></li>
-      <li><a href="berita/DBS_Pinjaman_GOTO.txt" target="_blank">Pendanaan DBS untuk GOTO</a></li>
-    </ul>
+  <div class="files">
+    <div class="list" id="fileList">
+      <!-- folders & files dynamis masuk sini -->
+      <div style="margin-bottom:12px"><strong class="small">Folders</strong></div>
+      <div id="foldersContainer"></div>
+    </div>
+
+    <div class="preview" id="previewArea">
+      <div id="previewHeader" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <strong id="p_title">Pilih file untuk preview</strong>
+          <div id="p_meta" class="small" style="margin-top:6px;color:var(--muted)"></div>
+        </div>
+        <div>
+          <button id="btnDownload" style="display:none">Download</button>
+        </div>
+      </div>
+      <div id="previewContent" style="min-height:220px">
+        <div class="small" style="color:var(--muted)">Preview akan muncul di sini ketika Anda pilih file.</div>
+      </div>
+    </div>
   </div>
 
-  <div class="section">
-    <h2>📈 Chart & AI Behavior</h2>
-    <ul>
-      <li><a href="chart/Daily.png" target="_blank">Chart Daily</a></li>
-      <li><a href="chart/Minute.png" target="_blank">Chart Minute</a></li>
-      <li><a href="chart/AI_Radar.csv" target="_blank">AI Radar CSV</a></li>
-    </ul>
-  </div>
+  <div style="height:8px"></div>
+  <div class="loader" id="progress" style="display:none"></div>
+  <footer>Vault otomatis oleh <strong style="color:var(--ok)">Tara AI</strong> • Repo: <a class="link" href="https://github.com/mrbudih/mrbudihbigdata" target="_blank">mrbudih/mrbudihbigdata</a></footer>
+</div>
 
-  <div class="section">
-    <h2>💼 Broker Summary</h2>
-    <ul>
-      <li><a href="broker/Broker_Summary_Oct25.xlsx" target="_blank">Broker Summary Oktober 2025</a></li>
-      <li><a href="broker/Flow_Institusi.csv" target="_blank">Flow Institusi CSV</a></li>
-    </ul>
-  </div>
+<!-- PapaParse CDN untuk CSV parsing -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <footer>
-    <p>💠 Sistem Integrasi Data dibuat oleh <span class="credit">Tara AI</span> untuk Bpk Budi Hariyanto</p>
-  </footer>
+<script>
+/*
+  index.html dynamic vault
+  - Owner & repo:
+*/
+const OWNER = 'mrbudih';
+const REPO  = 'mrbudihbigdata';
+const BASE_API = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
+const RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main`;
+
+// folders to scan (tambah/mengurangi aman)
+const FOLDERS = ['laporan','berita','chart','broker'];
+
+const foldersContainer = document.getElementById('foldersContainer');
+const previewContent = document.getElementById('previewContent');
+const p_title = document.getElementById('p_title');
+const p_meta = document.getElementById('p_meta');
+const btnDownload = document.getElementById('btnDownload');
+const progress = document.getElementById('progress');
+
+async function fetchJson(url){
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  return await res.json();
+}
+
+function humanSize(bytes){
+  if(bytes===undefined) return '';
+  const thresh = 1024;
+  if (bytes < thresh) return bytes + ' B';
+  const units = ['KB','MB','GB','TB'];
+  let u=-1; do { bytes/=thresh; ++u; } while(bytes>=thresh && u<units.length-1);
+  return bytes.toFixed(1)+' '+units[u];
+}
+
+async function listFolder(path){
+  try{
+    const url = `${BASE_API}/${path}`;
+    const data = await fetchJson(url);
+    return data; // array of file objects
+  }catch(err){
+    console.error('listFolder',path,err);
+    return [];
+  }
+}
+
+function makeFileRow(file){
+  const el = document.createElement('div');
+  el.className = 'file';
+  const name = document.createElement('div');
+  name.innerHTML = `<div style="font-weight:600">${file.name}</div><div class="meta">${file.type} • ${humanSize(file.size)}</div>`;
+  const right = document.createElement('div');
+  const btnView = document.createElement('button');
+  btnView.textContent = 'Open';
+  btnView.onclick = ()=> previewFile(file);
+  right.appendChild(btnView);
+  el.appendChild(name);
+  el.appendChild(right);
+  return el;
+}
+
+async function build(){
+  foldersContainer.innerHTML = '';
+  progress.style.display = 'block';
+  for(const f of FOLDERS){
+    const wrap = document.createElement('div');
+    wrap.className='folder';
+    wrap.innerHTML = `<div class="name">${f}</div><div class="tag">scan</div>`;
+    foldersContainer.appendChild(wrap);
+
+    try{
+      const items = await listFolder(f);
+      // show files under folder
+      if(items && items.length>0){
+        const sub = document.createElement('div');
+        sub.style.margin = '8px 0 14px 8px';
+        for(const file of items){
+          if(file.type==='file'){
+            const row = makeFileRow(file);
+            sub.appendChild(row);
+          }
+        }
+        foldersContainer.appendChild(sub);
+      } else {
+        const empty = document.createElement('div');
+        empty.className='small';
+        empty.style.margin='6px 0 12px 8px';
+        empty.textContent = 'Folder kosong';
+        foldersContainer.appendChild(empty);
+      }
+    }catch(err){
+      const errEl = document.createElement('div');
+      errEl.style.color='salmon';
+      errEl.textContent = `Gagal membaca folder ${f}`;
+      foldersContainer.appendChild(errEl);
+    }
+  }
+  progress.style.display = 'none';
+}
+
+/* Preview handler */
+function fileRawUrl(path){
+  // path is like 'laporan/GOTO_Q1_2025.pdf' or item.path from API
+  return `${RAW_BASE}/${path}`;
+}
+
+function clearPreview(){
+  p_title.textContent = 'Pilih file untuk preview';
+  p_meta.textContent = '';
+  previewContent.innerHTML = '<div class="small" style="color:var(--muted)">Preview akan muncul di sini ketika Anda pilih file.</div>';
+  btnDownload.style.display = 'none';
+}
+
+async function previewFile(file){
+  // file = object from GitHub API
+  p_title.textContent = file.name;
+  p_meta.textContent = `${file.path} • ${humanSize(file.size)} • ${new Date(file.sha? Date.parse(file.sha): Date.now()).toLocaleString()}`;
+  btnDownload.style.display = 'inline-block';
+  btnDownload.onclick = ()=> window.open(fileRawUrl(file.path),'_blank');
+
+  const ext = file.name.split('.').pop().toLowerCase();
+  const raw = fileRawUrl(file.path);
+
+  previewContent.innerHTML = ''; // clear
+
+  if(['png','jpg','jpeg','gif','webp','svg'].includes(ext)){
+    const img = document.createElement('img');
+    img.src = raw;
+    img.style.maxWidth='100%';
+    img.style.borderRadius='8px';
+    previewContent.appendChild(img);
+    return;
+  }
+
+  if(ext==='pdf'){
+    const iframe = document.createElement('iframe');
+    iframe.src = raw;
+    iframe.style.width='100%';
+    iframe.style.height='620px';
+    iframe.style.border='none';
+    previewContent.appendChild(iframe);
+    return;
+  }
+
+  if(ext==='txt' || ext==='md' || ext==='html'){
+    const txt = await (await fetch(raw)).text();
+    const pre = document.createElement('pre');
+    pre.style.whiteSpace='pre-wrap';
+    pre.style.fontSize='13px';
+    pre.style.color='#dbeafe';
+    pre.textContent = txt;
+    previewContent.appendChild(pre);
+    return;
+  }
+
+  if(ext==='csv'){
+    const txt = await (await fetch(raw)).text();
+    const parsed = Papa.parse(txt, {header:true, dynamicTyping:true});
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+    if(parsed.meta && parsed.meta.fields){
+      const tr = document.createElement('tr');
+      for(const h of parsed.meta.fields){
+        const th = document.createElement('th'); th.textContent = h; tr.appendChild(th);
+      }
+      thead.appendChild(tr);
+    }
+    for(const row of parsed.data){
+      const tr = document.createElement('tr');
+      for(const key of parsed.meta.fields){
+        const td = document.createElement('td'); td.textContent = row[key]===undefined?'':row[key]; tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    }
+    table.appendChild(thead); table.appendChild(tbody);
+    previewContent.appendChild(table);
+    return;
+  }
+
+  // xlsx or unknown: show download link
+  const dl = document.createElement('div');
+  dl.innerHTML = `<div style="margin:12px 0">Tipe file <strong>${ext}</strong> - klik tombol download untuk membuka file di tab baru.</div>`;
+  previewContent.appendChild(dl);
+}
+
+/* init */
+clearPreview();
+build();
+
+/* optional: refresh button (not implemented UI); you can reload page to refresh list */
+</script>
 </body>
 </html>
